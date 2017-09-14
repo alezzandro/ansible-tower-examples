@@ -18,6 +18,7 @@
     permanent: true
     immediate: true
     state: enabled
+  ignore_errors: yes
 
 - name: Configure the haproxy cnf file with hosts
   template: src=haproxy.cfg.j2 dest=/etc/haproxy/haproxy.cfg

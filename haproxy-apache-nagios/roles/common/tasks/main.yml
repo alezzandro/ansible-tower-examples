@@ -24,6 +24,7 @@
     permanent: true
     immediate: true
     state: enabled
+  ignore_errors: yes
 
 - name: Start the nagios-nrpe service
   service: name=nrpe state=started enabled=yes
@@ -48,6 +49,7 @@
     permanent: true
     immediate: true
     state: enabled
+  ignore_errors: yes
 
 - name: test to see if selinux is running
   command: getenforce
