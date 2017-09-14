@@ -1,0 +1,10 @@
+- hosts: all
+  tasks:
+    - name: Enable required repos
+      shell: subscription-manager repos --enable=rhel-7-server-rpms --enable=rhel-7-server-extras-rpms  --enable=rhel-7-server-optional-rpms
+
+    - name: Install epel repo
+      yum: 
+        name: http://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm 
+        state: present
+
