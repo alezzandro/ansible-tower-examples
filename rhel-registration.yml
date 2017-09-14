@@ -1,0 +1,13 @@
+---
+## This playbook deploys the whole application stack in this site.  
+
+# Apply common configuration to all hosts
+- hosts: all
+  tasks:
+        - name: Register and subscribe to a specific pool by ID.
+          redhat_subscription:
+            state: present
+            username: "{{ rh_username  }}"
+            password: "{{ rh_password  }}"
+            pool_ids: "{{ rh_poolid  }}"
+    
