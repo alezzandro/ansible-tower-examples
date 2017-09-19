@@ -1,6 +1,6 @@
 - hosts: all
   tasks:
-    - name: Enable required repos
+    - name: Disable all repos
       shell: subscription-manager repos --disable '*'
     
     - name: Install epel repo
