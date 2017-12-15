@@ -1,7 +1,7 @@
 ---
 # This playbook re-add a webserver to the load balancer
 
-- hosts: haproxy
+- hosts: lbservers
   tasks:
     - name: Reinserting the host {{ targethost }} into Loadbalancer
       haproxy: 'state=enabled backend=myloadbalancer host={{ targethost }} socket=/var/lib/haproxy/stats'
