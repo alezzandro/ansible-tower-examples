@@ -1,6 +1,11 @@
 ---
 # This role contains common plays that will run on all nodes.
 
+- name: Install EPEL
+  yum: name={{ item }} state=present
+  with_items:
+   - https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+
 - name: Install python bindings for SE Linux
   yum: name={{ item }} state=present
   with_items:
