@@ -19,14 +19,12 @@
     when: sda_file_check.stat.exists == false
 
   - name: Ensure latest libraries are installed
-    yum: name={{ item }} state=present
-    with_items:
-    - lvm2
+    yum: name=lvm2 state=present
 
   - name: Create a volume group on top of loopback devide in /sda
     lvg:
       vg: demovg
-      pvs: /sda
+      pvs: /dev/loop0
 
   - name: Create a logical volume with 200M size
     lvol:
