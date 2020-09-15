@@ -44,6 +44,7 @@
 
   - name: Check if fstab already contains an entry for the demolv fs
     shell: "grep -i 'demovg-demolv' /etc/fstab"
+    ignore_errors: yes
     register: demo_presence
 
   - name: Adding an entry to fstab
