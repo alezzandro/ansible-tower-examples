@@ -2,8 +2,7 @@
 ## This playbook setup the loopback device for simulating a block device
 
 # Apply common configuration to all hosts
-- hosts: local 
-  connection: local
+- hosts: all 
   tasks:
 
   - name: check if loopback file exists
