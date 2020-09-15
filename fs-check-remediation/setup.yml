@@ -49,7 +49,7 @@
 
   - name: Adding an entry to fstab
     command: echo -e "\n/dev/mapper/demovg-demolv       /mnt/demo       xfs     defaults 0 0\n" >> /etc/fstab
-    when: demo_presence is not changed
+    when: demo_presence.rc == 1
 
   - name: Ensure the path is mounted
     mount:
