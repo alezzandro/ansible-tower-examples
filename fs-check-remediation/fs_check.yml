@@ -12,10 +12,10 @@
      - name: Test for available disk space
        setup: filter=ansible_mounts
        
-     - name: Ensure that free space on the tested volume is greater than 15%
+     - name: Ensure that free space on the tested volume is greater than 15% of total space
        assert:
          that:
-           - mount.size_available > mount.size_total|float * 0.05
+           - mount.size_available > mount.size_total|float * 0.15
          success_msg: Disk space has NOT reached 95% threshold
          fail_msg: Disk space has reached 95% threshold!!!
          quiet: true
