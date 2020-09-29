@@ -5,7 +5,7 @@
 - hosts: all 
   tasks:
 
-  - name: print 'mounts'
+  - name: print mounts
     debug:
-	msg: "Ansible mounts: {{ ansible_mounts }}"
+      msg: "Ansible mounts: {{ ansible_mounts }}"
   
