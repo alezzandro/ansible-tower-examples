@@ -5,6 +5,6 @@
 - hosts: all 
   tasks:
 
-  - name: Create a file of 190MB on /mnt/demo to fill up to 95% the disk
-    command: dd if=/dev/zero of=/mnt/demo/largefile bs=1M count=190
+  - name: Create a file of 180MB on /mnt/demo to fill up to 90% the disk
+    command: dd if=/dev/zero of=/mnt/demo/largefile bs=1M count=180
   
