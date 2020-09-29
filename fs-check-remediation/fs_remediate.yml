@@ -16,7 +16,7 @@
        lvol:
          vg: demovg
          lv: demolv
-         size: 10%FREE
+         size: +10%FREE
          resizefs: true
        vars:
          mount: "{{ ansible_mounts | selectattr('mount','equalto',item.mount) | list | first }}"
