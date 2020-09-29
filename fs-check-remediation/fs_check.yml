@@ -18,7 +18,7 @@
            - mount.size_available > mount.size_total|float * 0.05
          success_msg: Disk space has NOT reached 95% threshold
          fail_msg: Disk space has reached 95% threshold!!!
-         quiet: yes
+         quiet: true
        vars:
          mount: "{{ ansible_mounts | selectattr('mount','equalto',item.mount) | list | first }}"
        with_items:
