@@ -1,0 +1,11 @@
+---
+## This playbook show the mounted fs on the system
+
+# Apply common configuration to all hosts
+- hosts: all 
+  tasks:
+
+  - name: print 'mounts'
+    debug:
+	msg: "Ansible mounts: {{ ansible_mounts }}"
+  
