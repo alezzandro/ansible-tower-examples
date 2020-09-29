@@ -15,8 +15,10 @@
      - name: Ensure that free space on the tested volume is greater than 15%
        assert:
          that:
-           - mount.size_available > mount.size_total|float * 0.05
-         msg: Disk space has reached 95% threshold
+           - mount.size_available < mount.size_total|float * 0.05
+         success_msg: Disk space has NOT reached 95% threshold
+         fail_msg: Disk space has reached 95% threshold!!!
+         quiet: yes
        vars:
          mount: "{{ ansible_mounts | selectattr('mount','equalto',item.mount) | list | first }}"
        with_items:
