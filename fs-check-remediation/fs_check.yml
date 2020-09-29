@@ -4,6 +4,8 @@
 # Apply common configuration to all hosts
 - hosts: all 
   tasks:
+ 
+  - set_fact: disk_limit=0.8
 
   - set_fact:
       mount: "{{ ansible_mounts | first }}"
