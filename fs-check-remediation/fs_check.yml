@@ -4,26 +4,21 @@
 # Apply common configuration to all hosts
 - hosts: all 
   tasks:
- 
-  - set_fact: disk_limit=0.8
+     - name: Collect only facts about hardware
+       setup:
+         gather_subset:
+           - 'hardware'
 
-  - set_fact:
-      mount: "{{ ansible_mounts | first }}"
-                                                                                                                        
-  - set_fact: disk_usage="{{ mount.size_total - mount.size_available }}"
-  - set_fact: disk_usage_ratio="{{ disk_usage|float / mount.size_total }}"
-  - set_fact: disk_usage_s="{{ (disk_usage|float / 1000000000) | round(1, 'common') }}GB"
-  - set_fact: disk_total_s="{{ (mount.size_total / 1000000000) | round(1, 'common') }}GB"
-  - set_fact: disk_usage_ratio_s="{{ 100 * (disk_usage_ratio|float) | round(1, 'common') }}%"
-  - set_fact: disk_limit_ratio_s="{{ (100 * disk_limit|float) |round }}%"
-                                                                                                                        
-  - debug:
-      msg: "disk usage {{ disk_usage_s }} of total {{ disk_total_s }} ({{ disk_usage_ratio_s }}) (should be within limit {{ disk_limit_ratio_s }})"
-
-  - name:                                                                                                                 
-    assert:
-      that: ( (disk_usage|float)/mount.size_total ) < disk_limit|float
-      msg: "Disk usage {{ disk_usage_ratio_s }} exceeds {{ disk_limit_ratio_s }}"
-    tags: disk
-    any_errors_fatal: true
+     - name: Test for available disk space
+       setup: filter=ansible_mounts
+       
+     - name: Ensure that free space on the tested volume is greater than 15%
+       assert:
+         that:
+           - mount.size_available > mount.size_total|float * 0.05
+         msg: Disk space has reached 95% threshold
+       vars:
+         mount: "{{ ansible_mounts | selectattr('mount','equalto',item.mount) | list | first }}"
+       with_items:
+         - "{{ ansible_mounts }}" 
 
