@@ -12,11 +12,11 @@
      - name: Test for available disk space
        setup: filter=ansible_mounts
        
-     - name: Resize the logical volume, adding +10% of LV if and only if Disk space has reached 90% threshold
+     - name: Resize the logical volume, adding +10% of free space in VG if and only if Disk space has reached 90% threshold
        lvol:
          vg: demovg
          lv: demolv
-         size: +10%LV
+         size: 10%FREE
          resizefs: true
        vars:
          mount: "{{ ansible_mounts | selectattr('mount','equalto',item.mount) | list | first }}"
