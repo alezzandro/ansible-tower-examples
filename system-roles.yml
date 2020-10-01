@@ -1,0 +1,15 @@
+---
+- name: example system roles playbook
+  hosts: web
+
+  tasks:
+
+    - name: Configure Firewall
+      include_role:
+        name: linux-system-roles.firewall
+
+    - name: Configure Timesync
+      include_role:
+        name: linux-system-roles.timesync
+
+
