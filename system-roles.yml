@@ -4,12 +4,13 @@
 
   tasks:
 
-    - name: Configure Firewall
-      include_role:
-        name: linux-system-roles.firewall
-
     - name: Configure Timesync
+      vars:
+        timesync_ntp_servers:
+          - hostname: time.ien.it
+            iburst: yes
       include_role:
         name: linux-system-roles.timesync
+
 
 
