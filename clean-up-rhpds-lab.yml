@@ -15,25 +15,25 @@
       enabled: false
       state: stopped
 
-  - name: latest Apache version installed
+  - name: Remove Apache 
     yum:
       name: httpd
       state: absent
 
-  - name: Ensure the path is mounted
+  - name: Ensure the path is unmounted
     mount:
       path: /mnt/demo
       src: /dev/mapper/demovg-demolv
       fstype: xfs
       state: unmounted
 
-  - name: Make sure group wheel is not in the sudoers configuration
+  - name: Remove fstab entry
     lineinfile:
       path: /etc/fstab
       state: absent
       regexp: '.*demovg-demolv.*'
 
-  - name: Creates mount demo directory
+  - name: Remove mount demo directory
     file:
       path: /mnt/demo
       state: absent
@@ -42,11 +42,13 @@
     lvol:
       vg: demovg
       lv: demolv
+      force: yes
       state: absent
 
   - name: Delete volume group
     lvg:
       vg: demovg
+      force: yes
       state: absent
 
   - name: Remove libraries 
