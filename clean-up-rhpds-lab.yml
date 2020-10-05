@@ -1,0 +1,61 @@
+---
+- name: Clean up the lab
+  hosts: web
+  become: true
+  tasks:
+
+  - name: remove index.html
+    file:
+      path: /var/www/html/index.html
+      state: absent
+
+  - name: Apache disabled and stopped
+    service:
+      name: httpd
+      enabled: false
+      state: stopped
+
+  - name: latest Apache version installed
+    yum:
+      name: httpd
+      state: absent
+
+  - name: Ensure the path is mounted
+    mount:
+      path: /mnt/demo
+      src: /dev/mapper/demovg-demolv
+      fstype: xfs
+      state: unmounted
+
+  - name: Make sure group wheel is not in the sudoers configuration
+    lineinfile:
+      path: /etc/fstab
+      state: absent
+      regexp: '.*demovg-demolv.*'
+
+  - name: Creates mount demo directory
+    file:
+      path: /mnt/demo
+      state: absent
+
+  - name: Delete logical volume
+    lvol:
+      vg: demovg
+      lv: demolv
+      state: absent
+
+  - name: Delete volume group
+    lvg:
+      vg: demovg
+      state: absent
+
+  - name: Remove libraries 
+    yum: name=lvm2 state=absent
+
+  - name: Detach loopback device
+    command: losetup -D
+
+  - name: Delete block file
+    file:
+      path: /sda
+      state: absent
