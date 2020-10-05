@@ -4,13 +4,18 @@
 
   tasks:
 
+    - name: Install RHEL System Roles
+      yum: 
+        name: rhel-system-roles
+        state: latest
+
     - name: Configure Timesync
       vars:
         timesync_ntp_servers:
           - hostname: time.ien.it
             iburst: yes
       include_role:
-        name: linux-system-roles.timesync
+        name: rhel-system-roles.timesync
 
 
 
