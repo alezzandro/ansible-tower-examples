@@ -17,9 +17,14 @@
       fieldnames: Client,Status,Err Code
       delimiter: ','
     register: backups
-  
-  - name: Print a message
+
+  - name: Print backups var
     debug:
-      msg: System {{ item.Client }} has status {{ item.Status }} with error code {{ item.Err Code }}
-    when: item.Status == "failed"
-    with_list: backups
+      var: backups
+      verbosity: 4
+
+#  - name: Print a message
+#    debug:
+#      msg: System {{ item.Client }} has status {{ item.Status }} with error code {{ item.Err Code }}
+#    when: item.Status == "failed"
+#    with_list: backups
