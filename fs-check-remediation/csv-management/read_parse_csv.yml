@@ -21,7 +21,6 @@
   - name: Print backups var
     debug:
       var: backups
-      verbosity: 4
 
 #  - name: Print a message
 #    debug:
