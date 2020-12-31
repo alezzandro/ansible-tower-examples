@@ -24,6 +24,6 @@
 
   - name: Print a message
     debug:
-      msg: System {{ item.Client }} has status {{ item.Status }} with error code {{ item.Err Code }}
+      msg: "System: {{ item['Client'] }} has Status: {{ item['Status'] }} with Error Code: {{ item['Err Code'] }} and Error Detail: {{ item['Error'] }}"
     when: item.Status == "failed"
-    with_items: backups.list
+    with_list: "{{ backups.list }}"
