@@ -26,4 +26,4 @@
     debug:
       msg: System {{ item.Client }} has status {{ item.Status }} with error code {{ item.Err Code }}
     when: item.Status == "failed"
-    with_list: backups.list
+    with_items: backups.list
