@@ -1,0 +1,25 @@
+---
+## This playbook download a remote csv file, parse it and execute some Tower's Template Playbook for managing any errors found.
+
+# Execute this on the local Tower, no remote hosts involved here.
+- hosts: 127.0.0.1
+  connection: local
+  tasks:
+
+  - name: Download the csv file from a remote HTTP location
+    get_url:
+      url: https://raw.githubusercontent.com/alezzandro/ansible-tower-examples/master/sample_file.csv
+      dest: /tmp/sample_file.csv
+  
+  - name: Parse CSV file
+    read_csv:
+      path: /tmp/sample_file.csv
+      fieldnames: Client,Status,Err Code
+      delimiter: ','
+    register: backups
+  
+  - name: Print a message
+    debug:
+      msg: System {{ item.Client }} has status {{ item.Status }} with error code {{ item.Err Code }}
+    when: item.Status == "failed"
+    with_list: backups
