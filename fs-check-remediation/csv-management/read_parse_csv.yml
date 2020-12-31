@@ -14,7 +14,7 @@
   - name: Parse CSV file
     read_csv:
       path: /tmp/sample_file.csv
-      fieldnames: Client,Status,Err Code
+#      fieldnames: server,group,client,status,errcode,starttime,endtime,error,noted
       delimiter: ','
     register: backups
 
