@@ -1,0 +1,6 @@
+---
+- name: Just an example playbook
+  hosts: all
+  tasks:
+   - name: Example from an Ansible Playbook
+     ansible.builtin.ping:
