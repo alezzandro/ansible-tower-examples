@@ -15,10 +15,7 @@
     - name: Add user ibm to the newly created job template
       ansible.controller.role:
         user: "ibm"
-        role:
-          - execute
-          - update
-          - read
+        role: admin
         job_templates:
           -  "New Job Template using instance group {{igroup_name}}"
         state: present
