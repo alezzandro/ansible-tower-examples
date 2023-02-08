@@ -10,5 +10,5 @@
       inventory: "Demo Inventory"
       project: "ansible-tower-examples"
       playbook: "ping.yml"
-      instance_groups: ["{{igroups_id}}"]
+      instance_groups: ["{{igroup_name}}"]
       state: "present"
