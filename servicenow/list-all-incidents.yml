@@ -11,7 +11,7 @@
     - name: List all incidents
 
       servicenow.itsm.incident_info:
-        number: 10
+        number: 100
         instance:
           host: "{{ SNOW_HOST }}"
           username: "{{ SNOW_USER }}"
