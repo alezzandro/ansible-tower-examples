@@ -1,0 +1,29 @@
+---
+- name: Automate SNOW 
+  hosts: localhost
+  connection: local
+  collections:
+    - servicenow.itsm
+  vars:
+    demo_username: "{{ lookup('env', 'SN_USERNAME') }}"
+
+  tasks:
+
+  - name: Create/update configuration item
+    servicenow.itsm.configuration_item:
+      name: "{{ item.hostname }}-{{ demo_username }}"
+      assigned_to: "{{ demo_username }}"
+      ip_address: "{{ item.default_ip }}"
+      mac_address: "{{ item.default_mac }}"
+      environment: test
+      other:
+        sys_class_name: cmdb_ci_linux_server
+    loop: "{{ node_info }}"
+    register: configuration_item
+
+  - name: debug
+    debug:
+      msg: "{{ configuration_item }}"
+
+
+

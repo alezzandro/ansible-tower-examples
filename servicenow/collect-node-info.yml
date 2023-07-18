@@ -1,0 +1,13 @@
+---
+- name: get node facts for SNOW
+  hosts: nodes
+  vars:
+    node_info: []
+
+  tasks:
+
+  - name: Collect inventory facts
+    ansible.builtin.set_stats:
+      data:
+        node_info: "{{ node_info + [{'hostname': ansible_facts['nodename'], 'default_ip': ansible_facts['default_ipv4']['address'], 'default_mac': ansible_facts['default_ipv4']['macaddress'], 'vendor': ansible_facts['product_name'] }] }}"
+

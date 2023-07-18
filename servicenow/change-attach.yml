@@ -1,0 +1,49 @@
+---
+- name: Automate SNOW 
+  hosts: localhost
+  connection: local
+  collections:
+    - servicenow.itsm
+    
+  vars:
+    demo_username: "{{ lookup('env', 'SN_USERNAME') }}"
+    problem_list: []
+
+  tasks:
+
+    - name: find user created problems
+      servicenow.itsm.problem_info:
+        query:
+          - sys_created_by: LIKE {{ demo_username }}
+            active: = true
+      register: problems
+
+    - name: query problem number and creation time 
+      set_fact:
+        problem_list: '{{ problem_list + [{"number": item.number, "opened_at": item.opened_at}] }}'
+      loop: "{{ problems.records }}"
+      when: problems
+
+    - name: Assign problem for assessment
+      servicenow.itsm.problem:
+        number: "{{ item.number }}"
+        state: 3
+        assigned_to: "{{ demo_username }}"
+      loop: "{{ problem_list }}"
+
+    - name: Create change request for resolving a problem
+      servicenow.itsm.change_request:
+        state: new
+        type: standard
+        short_description: "Reboot the webserver"
+        description: "Just power off the entire rack to be sure"
+        on_hold: true
+        hold_reason: "Wait until after board meeting!"
+        other:
+          parent: "{{ item.number }}"
+      loop: "{{ problem_list }}"
+      register: change
+
+    # - debug:
+    #     msg: "A new change request has been created {{ change.record.number }}"
+
