@@ -10,7 +10,8 @@
     # Always give your tasks a useful name
     - name: List all incidents
 
-      servicenow.itsm.change_request_info:
+      servicenow.itsm.incident_info:
+        number: 10
         instance:
           host: "{{ SNOW_HOST }}"
           username: "{{ SNOW_USER }}"
