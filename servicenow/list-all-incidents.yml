@@ -12,9 +12,9 @@
 
       servicenow.itsm.incident_info:
         instance:
-          host: {{ SNOW_HOST }}
-          username: {{ SNOW_USER }}
-          password: {{ SNOW_PASS }}
+          host: "{{ SNOW_HOST }}"
+          username: "{{ SNOW_USER }}"
+          password: "{{ SNOW_PASS }}"
       register: result
 
     - debug:
