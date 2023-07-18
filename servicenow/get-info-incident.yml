@@ -8,11 +8,10 @@
   tasks:
 
     # Always give your tasks a useful name
-    - name: List all incidents
+    - name: Retrieve info for an incident
 
       servicenow.itsm.incident_info:
-        query:
-          - state: = new
+        number: "{{ SNOW_INC_NUMBER }}"
         instance:
           host: "{{ SNOW_HOST }}"
           username: "{{ SNOW_USER }}"
