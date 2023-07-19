@@ -30,7 +30,7 @@
         delay: 5
         timeout: 400
 
-    - name: reload command
+    - name: uptime command
       cli_command:
         command: "show version | include uptime"
       when: ansible_network_os is defined
