@@ -12,5 +12,17 @@
       when: ansible_network_os is defined
       register: output
 
-    - debug:
-        msg: "{{ output.stdout_lines }}"
+    - name: Update incident
+      servicenow.itsm.incident:
+        number: "{{ SNOW_INC_NUMBER }}"
+        instance:
+          host: "{{ SNOW_HOST }}"
+          username: "{{ SNOW_USER }}"
+          password: "{{ SNOW_PASS }}"
+          timeout: "{{ SNOW_TIMEOUT }}"
+        state: in_progress
+        other: 
+          comments: "Ansible Automation Platform output of "show version" command:\n{{ output.stdout_lines }}"
+
+#    - debug:
+#        msg: "{{ output.stdout_lines }}"
