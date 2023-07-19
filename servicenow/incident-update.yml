@@ -19,8 +19,8 @@
           username: "{{ SNOW_USER }}"
           password: "{{ SNOW_PASS }}"
         state: in_progress
-        other: 
-          work_notes: "This is a new comment from Ansible Automation Platform"
+#        other: 
+#          work_notes: "This is a new comment from Ansible Automation Platform"
       # Register the output of this task for use within subsequent tasks
       register: update_incident
 
