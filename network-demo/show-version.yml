@@ -22,7 +22,7 @@
           timeout: "{{ SNOW_TIMEOUT }}"
         state: in_progress
         other: 
-          comments: "Ansible Automation Platform output of "show version" command:\n{{ output.stdout_lines }}"
+          comments: "Ansible Automation Platform output of 'show version' command:\n{{ output.stdout_lines }}"
 
 #    - debug:
 #        msg: "{{ output.stdout_lines }}"
