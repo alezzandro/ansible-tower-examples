@@ -18,6 +18,7 @@
           host: "{{ SNOW_HOST }}"
           username: "{{ SNOW_USER }}"
           password: "{{ SNOW_PASS }}"
+          timeout: "{{ SNOW_TIMEOUT }}"
         state: in_progress
         other: 
           expected_start: 2021-02-12
