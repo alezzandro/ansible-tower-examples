@@ -11,11 +11,11 @@
         command: "reload"
       when: ansible_network_os is defined
 
-      - name: Wait for the reboot to complete if there was a change.
-        wait_for_connection:
-          connect_timeout: 10
-          sleep: 5
-          delay: 5
-          timeout: 300
+    - name: Wait for the reboot to complete if there was a change.
+      wait_for_connection:
+        connect_timeout: 10
+        sleep: 5
+        delay: 5
+        timeout: 300
 
 
