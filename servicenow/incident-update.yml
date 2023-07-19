@@ -1,0 +1,35 @@
+---
+- name: Automate SNOW 
+  hosts: localhost
+  connection: local
+  collections:
+    - servicenow.itsm
+
+  tasks:
+
+    # Always give your tasks a useful name
+    - name: Update incident
+
+      # This task leverages the 'incident' module from the 'itsm' collection 
+      # within the 'servicenow' namespace
+      servicenow.itsm.incident:
+        number: "{{ SNOW_INC_NUMBER }}"
+        instance:
+          host: "{{ SNOW_HOST }}"
+          username: "{{ SNOW_USER }}"
+          password: "{{ SNOW_PASS }}"
+        state: in_progress
+        other: 
+          comments: "This is a new comment from Ansible Automation Platform"
+      # Register the output of this task for use within subsequent tasks
+      register: update_incident
+
+    - set_fact:
+        incident_number_cached: "{{ new_incident.record.number }}"
+        cacheable: true
+
+    - debug:
+
+        # Use the output of the incident creation task to display the incident number
+        msg: "This incident has been updated: {{ new_incident.record.number }}"
+
