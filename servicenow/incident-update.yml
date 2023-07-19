@@ -25,11 +25,11 @@
       register: update_incident
 
     - set_fact:
-        incident_number_cached: "{{ new_incident.record.number }}"
+        incident_number_cached: "{{ update_incident.record.number }}"
         cacheable: true
 
     - debug:
 
         # Use the output of the incident creation task to display the incident number
-        msg: "This incident has been updated: {{ new_incident.record.number }}"
+        msg: "This incident has been updated: {{ update_incident.record.number }}"
 
