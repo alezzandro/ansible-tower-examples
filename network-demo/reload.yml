@@ -11,11 +11,41 @@
         command: "reload\ny"
       when: ansible_network_os is defined
 
-    - name: Wait for the reboot to complete if there was a change.
+    - name: Update incident
+      servicenow.itsm.incident:
+        number: "{{ SNOW_INC_NUMBER }}"
+        instance:
+          host: "{{ SNOW_HOST }}"
+          username: "{{ SNOW_USER }}"
+          password: "{{ SNOW_PASS }}"
+          timeout: "{{ SNOW_TIMEOUT }}"
+        state: in_progress
+        other:
+          comments: "Ansible Automation Platform just reload: {{ ansible_host }}"
+
+    - name: Wait for the reboot to complete..
       wait_for_connection:
         connect_timeout: 10
         sleep: 5
         delay: 5
         timeout: 400
+
+    - name: reload command
+      cli_command:
+        command: "show version | include uptime"
+      when: ansible_network_os is defined
+      register: output
+
+    - name: Update incident
+      servicenow.itsm.incident:
+        number: "{{ SNOW_INC_NUMBER }}"
+        instance:
+          host: "{{ SNOW_HOST }}"
+          username: "{{ SNOW_USER }}"
+          password: "{{ SNOW_PASS }}"
+          timeout: "{{ SNOW_TIMEOUT }}"
+        state: in_progress
+        other:
+          comments: "Ansible Automation Platform successfully reload {{ ansible_host }}, system uptime is:\n{{ output.stdout_lines }}"
 
 

@@ -10,6 +10,7 @@
       cli_command:
         command: "show interface GigabitEthernet1"
       when: ansible_network_os is defined
+      register: output
 
     - name: Update incident
       servicenow.itsm.incident:
