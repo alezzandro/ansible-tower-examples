@@ -20,7 +20,7 @@
           password: "{{ SNOW_PASS }}"
         state: in_progress
         other: 
-          comments: "This is a new comment from Ansible Automation Platform"
+          work_notes: "This is a new comment from Ansible Automation Platform"
       # Register the output of this task for use within subsequent tasks
       register: update_incident
 
