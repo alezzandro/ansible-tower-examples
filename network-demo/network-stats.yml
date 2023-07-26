@@ -22,5 +22,5 @@
           timeout: "{{ SNOW_TIMEOUT }}"
         state: in_progress
         other:
-          comments: "Ansible Automation Platform output of 'show interface GigabitEthernet1' command:\n{{ output.stdout_lines }}"
+          comments: "Ansible Automation Platform output of 'show interface GigabitEthernet1' command:\n{{ output.stdout }}"
 

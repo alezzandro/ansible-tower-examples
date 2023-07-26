@@ -46,6 +46,6 @@
           timeout: "{{ SNOW_TIMEOUT }}"
         state: in_progress
         other:
-          comments: "Ansible Automation Platform successfully reload {{ ansible_host }}, system uptime is:\n{{ output.stdout_lines }}"
+          comments: "Ansible Automation Platform successfully reload {{ ansible_host }}, system uptime is:\n{{ output.stdout }}"
 
 
