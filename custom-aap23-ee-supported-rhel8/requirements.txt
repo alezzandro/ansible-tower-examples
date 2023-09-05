@@ -1,0 +1,9 @@
+kubernetes>=12.0.0
+requests-oauthlib
+jsonpatch
+pynetbox==5.3.1
+ansible-modules-hashivault==4.6.3
+deepdiff==5.7.0
+pandas==1.4.1
+ovf==0.4.3
+cryptography==36.0.2
