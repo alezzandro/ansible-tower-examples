@@ -3,11 +3,4 @@ version: 1
 build_arg_defaults:
   EE_BASE_IMAGE: registry.redhat.io/ansible-automation-platform-23/ee-supported-rhel8:latest
 dependencies:
-  python: requirements.txt
   galaxy: requirements.yml
-additional_build_steps:
- prepend:
-    - COPY ansible.cfg /etc/ansible/ansible.cfg
- append:
-    - RUN microdnf install --enablerepo=rhocp-4.10-for-rhel-8-x86_64-rpms --releasever=8.6 openshift-clients
-    - RUN ansible-galaxy collection install redhat.openshift
