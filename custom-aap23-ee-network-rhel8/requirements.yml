@@ -1,0 +1,26 @@
+---
+collections:
+  - name: community.general
+  - name: juniper.device
+  - name: ansible.builtin
+  - name: ansible.controller
+  - name: ansible.netcommon
+  - name: ansible.network
+  - name: ansible.posix
+  - name: ansible.security
+  - name: ansible.snmp
+  - name: ansible.utils
+  - name: ansible.yang
+  - name: arista.eos
+  - name: cisco.asa
+  - name: cisco.ios
+  - name: cisco.iosxr
+  - name: cisco.nxos
+  - name: community.general
+  - name: frr.frr
+  - name: juniper.device
+  - name: junipernetworks.junos
+  - name: openvswitch.openvswitch
+  - name: servicenow.itsm
+  - name: splunk.es
+  - name: vyos.vyos
