@@ -1,0 +1,7 @@
+xmltodict
+junos-eznc
+jxmlease
+jmespath
+git+https://github.com/Juniper/jsnapy.git
+ntc-templates
+pyats

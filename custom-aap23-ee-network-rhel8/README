@@ -2,7 +2,7 @@ On a RHEL8 system with valid subscription attached:
 
 # podman login registry.redhat.io
 
-Edit ansible.cfg to insert your token from console.redhat.com
+Edit ansible.cfg to insert your token from https://console.redhat.com/ansible/automation-hub/token
 
-# ansible-builder build -v3 -t custom-aap23-ee-network-rhel8:20230905
+# ansible-builder build -v3 -t custom-aap23-ee-network-rhel8:20230907
 
