@@ -29,9 +29,11 @@ collections:
   - name: cisco.nxos
     version: 4.1.0
   - name: community.general
+    version: 4.5.0
   - name: frr.frr
     version: 2.0.0 
   - name: juniper.device
+    version: 1.0.2
   - name: junipernetworks.junos
     version: 4.0.0
   - name: openvswitch.openvswitch
