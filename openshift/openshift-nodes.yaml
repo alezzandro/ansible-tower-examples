@@ -1,0 +1,23 @@
+---
+- name: Extract data from OpenShift
+  hosts: localhost
+  tasks:
+
+  - name: Gather data on the nodes
+    kubernetes.core.k8s_info:
+      kind: Node
+    register: node_list
+
+#  - name: Print the data gahered from OpenShift
+#    ansible.builtin.debug: 
+#      var: node_list
+
+  - name: Export the data to json file
+    ansible.builtin.copy: content="{{ node_list | to_nice_json }}" dest="./nodes_output.json"
+
+  - name: Output the report with the template
+    ansible.builtin.template:
+      src: templates/node-report.csv.j2
+      dest: "./nodes_report.csv"
+
+

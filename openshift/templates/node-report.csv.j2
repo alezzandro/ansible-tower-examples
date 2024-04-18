@@ -1,0 +1,4 @@
+Node Name,Node Label kubernetes.io/arch,Node Address,Node Capacity CPU,Node Capacity Memory,Node Capacity Ephemeral-Storage
+{% for node in node_list.resources %}
+{{ node.metadata.name }},{{ node.metadata.labels['kubernetes.io/arch'] }},{{ node.status.addresses[0].address }},{{ node.status.capacity.cpu }},{{ node.status.capacity.memory }},{{ node.status.capacity['ephemeral-storage'] }}
+{% endfor %}

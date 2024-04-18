@@ -1,0 +1,7 @@
+Node Name,Node Label kubernetes.io/arch,Node Address,Node Capacity CPU,Node Capacity Memory,Node Capacity Ephemeral-Storage
+control-plane-cluster-mg5rb-1,amd64,10.10.10.10,8,16378728Ki,104266732Ki
+control-plane-cluster-mg5rb-2,amd64,10.10.10.11,8,16378728Ki,104266732Ki
+control-plane-cluster-mg5rb-3,amd64,10.10.10.12,8,16378728Ki,104266732Ki
+worker-cluster-mg5rb-1,amd64,10.10.10.20,16,32867460Ki,104266732Ki
+worker-cluster-mg5rb-2,amd64,10.10.10.21,16,32867460Ki,104266732Ki
+worker-cluster-mg5rb-3,amd64,10.10.10.22,16,32867460Ki,104266732Ki
