@@ -5,25 +5,24 @@
 - hosts: all 
   tasks:
  
-  - set_fact: disk_limit=0.8
+  - anible.builtin.set_fact: disk_limit=0.8
 
-  - set_fact:
+  - anible.builtin.set_fact:
       mount: "{{ ansible_mounts | first }}"
                                                                                                                         
-  - set_fact: disk_usage="{{ mount.size_total - mount.size_available }}"
-  - set_fact: disk_usage_ratio="{{ disk_usage|float / mount.size_total }}"
-  - set_fact: disk_usage_s="{{ (disk_usage|float / 1000000000) | round(1, 'common') }}GB"
-  - set_fact: disk_total_s="{{ (mount.size_total / 1000000000) | round(1, 'common') }}GB"
-  - set_fact: disk_usage_ratio_s="{{ 100 * (disk_usage_ratio|float) | round(1, 'common') }}%"
-  - set_fact: disk_limit_ratio_s="{{ (100 * disk_limit|float) |round }}%"
+  - anible.builtin.set_fact: disk_usage="{{ mount.size_total - mount.size_available }}"
+  - anible.builtin.set_fact: disk_usage_ratio="{{ disk_usage|float / mount.size_total }}"
+  - anible.builtin.set_fact: disk_usage_s="{{ (disk_usage|float / 1000000000) | round(1, 'common') }}GB"
+  - anible.builtin.set_fact: disk_total_s="{{ (mount.size_total / 1000000000) | round(1, 'common') }}GB"
+  - anible.builtin.set_fact: disk_usage_ratio_s="{{ 100 * (disk_usage_ratio|float) | round(1, 'common') }}%"
+  - anible.builtin.set_fact: disk_limit_ratio_s="{{ (100 * disk_limit|float) |round }}%"
                                                                                                                         
-  - debug:
+  - anible.builtin.debug:
       msg: "disk usage {{ disk_usage_s }} of total {{ disk_total_s }} ({{ disk_usage_ratio_s }}) (should be within limit {{ disk_limit_ratio_s }})"
 
   - name:                                                                                                                 
-    assert:
+    anible.builtin.assert:
       that: ( (disk_usage|float)/mount.size_total ) < disk_limit|float
       msg: "Disk usage {{ disk_usage_ratio_s }} exceeds {{ disk_limit_ratio_s }}"
     tags: disk
     any_errors_fatal: true
-

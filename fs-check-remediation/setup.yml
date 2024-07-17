@@ -2,57 +2,58 @@
 ## This playbook setup the loopback device for simulating a block device
 
 # Apply common configuration to all hosts
-- hosts: all 
+- name: Setup the virtual disk
+  hosts: all 
   tasks:
 
   - name: check if loopback file exists
-    stat: 
+    ansible.builtin.stat: 
       path: /sda
     register: sda_file_check
 
   - name: Create a disk image (1GB)
-    command: dd if=/dev/zero of=/sda bs=1M count=1024
+    ansible.builtin.command: dd if=/dev/zero of=/sda bs=1M count=1024
     when: sda_file_check.stat.exists == false
   
   - name: Setup the loopback device
-    command: losetup -fP /sda
+    ansible.builtin.command: losetup -fP /sda
     when: sda_file_check.stat.exists == false
 
   - name: Ensure latest libraries are installed
-    yum: name=lvm2 state=present
+    ansible.builtin.dnf: name=lvm2 state=present
 
   - name: Create a volume group on top of loopback devide in /sda
-    lvg:
+    community.general.lvg:
       vg: demovg
       pvs: /dev/loop0
 
   - name: Create a logical volume with 200M size
-    lvol:
+    community.general.lvol:
       vg: demovg
       lv: demolv
       size: 200m
 
   - name: Create a XFS filesystem on /dev/mapper/demovg-demolv
-    filesystem:
+    community.general.filesystem:
       fstype: xfs
       dev: /dev/mapper/demovg-demolv
 
   - name: Creates mount demo directory
-    file:
+    ansible.builtin.file:
       path: /mnt/demo
       state: directory
 
   - name: Check if fstab already contains an entry for the demolv fs
-    shell: "grep -i 'demovg-demolv' /etc/fstab"
+    ansible.builtin.shell: "grep -i 'demovg-demolv' /etc/fstab"
     ignore_errors: yes
     register: demo_presence
 
   - name: Adding an entry to fstab
-    command: echo -e "\n/dev/mapper/demovg-demolv       /mnt/demo       xfs     defaults 0 0\n" >> /etc/fstab
+    ansible.builtin.command: echo -e "\n/dev/mapper/demovg-demolv       /mnt/demo       xfs     defaults 0 0\n" >> /etc/fstab
     when: demo_presence.rc == 1
 
   - name: Ensure the path is mounted
-    mount:
+    ansible.builtin.mount:
       path: /mnt/demo
       src: /dev/mapper/demovg-demolv
       fstype: xfs

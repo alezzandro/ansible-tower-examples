@@ -2,18 +2,19 @@
 ## This playbook show the mounted fs on the system
 
 # Apply common configuration to all hosts
-- hosts: all 
+- name: Filesystem check
+  hosts: all
   tasks:
      - name: Collect only facts about hardware
-       setup:
+       anible.builtin.setup:
          gather_subset:
            - 'hardware'
 
      - name: Test for available disk space
-       setup: filter=ansible_mounts
+       anible.builtin.setup: filter=ansible_mounts
        
      - name: Ensure that free space on the tested volume is greater than 10% of total space
-       assert:
+       anible.builtin.assert:
          that:
            - mount.size_available > mount.size_total|float * 0.1
          success_msg: Disk space has NOT reached 90% threshold
