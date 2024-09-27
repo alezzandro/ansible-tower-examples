@@ -4,4 +4,7 @@ ansible_config: 'ansible.cfg'
 dependencies:
   galaxy: requirements.yml
   python: requirements.txt
-
+additional_build_steps:
+  append:
+    - ENV JSNAPY_HOME=/usr/local/lib/python3.9/site-packages/jnpr/jsnapy
+    - RUN sed -i 's/~/\/runner\/project/g' /usr/local/lib/python3.9/site-packages/jnpr/jsnapy/jsnapy.cfg
